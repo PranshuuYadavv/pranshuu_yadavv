@@ -35,30 +35,12 @@
     }
 
     .info {
-      font-size: 1.3em;
+      font-size: 1.2em;
       margin-bottom: 15px;
       text-shadow: 1px 1px 5px #000;
     }
 
-    .button {
-      background: #fff;
-      color: #333;
-      padding: 15px 30px;
-      margin: 10px;
-      border: none;
-      border-radius: 40px;
-      font-size: 1.2em;
-      cursor: pointer;
-      text-decoration: none;
-      transition: all 0.3s ease;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
-    }
-
-    .button:hover {
-      transform: translateY(-5px) scale(1.05);
-      box-shadow: 0 12px 24px rgba(0,0,0,0.4);
-    }
-
+    /* PHOTO GLOW BORDER */
     img {
       width: 180px;
       height: 180px;
@@ -68,12 +50,168 @@
       box-shadow: 0 4px 15px rgba(0,0,0,0.5);
       animation: float 4s ease-in-out infinite;
       object-fit: cover;
+      position: relative;
+      z-index: 1;
+    }
+
+    img::after {
+      content: "";
+      position: absolute;
+      top: -8px;
+      left: -8px;
+      width: 196px; /* 180 + 8 + 8 */
+      height: 196px;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: -1;
+      animation: glow 3s ease-in-out infinite;
+      box-shadow: 0 0 15px 5px #ff3c78, 0 0 30px 10px #ff3c78, 0 0 45px 20px #ff3c78;
+    }
+
+    @keyframes glow {
+      0%, 100% {
+        box-shadow: 0 0 15px 5px #ff3c78, 0 0 30px 10px #ff3c78, 0 0 45px 20px #ff3c78;
+      }
+      50% {
+        box-shadow: 0 0 25px 10px #ff7eb3, 0 0 40px 15px #ff7eb3, 0 0 55px 25px #ff7eb3;
+      }
     }
 
     @keyframes float {
       0%, 100% { transform: translateY(0); }
       50% { transform: translateY(-15px); }
     }
+
+    /* PDF BUTTON */
+    .button.pdf-button {
+      background-color: white;
+      color: #111;
+      border-radius: 40px;
+      position: relative;
+      overflow: hidden;
+      z-index: 0;
+      padding: 15px 30px;
+      font-size: 1.2em;
+      margin: 10px;
+      text-decoration: none;
+      transition: 0.3s;
+      box-shadow: 0 0 8px rgba(255,0,0,0.6);
+    }
+    .button.pdf-button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 15px rgba(255,0,0,0.9);
+    }
+
+    /* COMMON BUTTON STYLE */
+    .button {
+      position: relative;
+      display: inline-block;
+      padding: 15px 30px;
+      margin: 10px;
+      font-size: 1.2em;
+      text-decoration: none;
+      color: #fff;
+      border-radius: 40px;
+      overflow: hidden;
+      z-index: 0;
+      transition: 0.3s;
+    }
+
+    .button:hover {
+      transform: scale(1.05);
+    }
+
+    /* BUTTONS WITH LINE BORDER ANIMATION */
+    /* We'll create a running line border animation using :before and :after */
+
+    .instagram-button {
+      background-color: #E1306C;
+      color: white;
+    }
+    .instagram-button::before,
+    .instagram-button::after {
+      content: "";
+      position: absolute;
+      border-radius: 40px;
+      pointer-events: none;
+    }
+    .instagram-button::before {
+      top: 0; left: 0; right: 0; bottom: 0;
+      border: 2px solid transparent;
+      border-top-color: white;
+      border-right-color: white;
+      animation: line-run 2s linear infinite;
+    }
+    .instagram-button::after {
+      top: 0; left: 0; right: 0; bottom: 0;
+      border: 2px solid transparent;
+      border-bottom-color: white;
+      border-left-color: white;
+      animation: line-run 2s linear infinite reverse;
+    }
+
+    .whatsapp-button {
+      background-color: #25D366;
+      color: white;
+    }
+    .whatsapp-button::before,
+    .whatsapp-button::after {
+      content: "";
+      position: absolute;
+      border-radius: 40px;
+      pointer-events: none;
+    }
+    .whatsapp-button::before {
+      top: 0; left: 0; right: 0; bottom: 0;
+      border: 3px dashed white;
+      animation: dash-run 1.5s linear infinite;
+    }
+    .whatsapp-button::after {
+      content: none; /* No after for whatsapp */
+    }
+
+    .telegram-button {
+      background-color: #0088cc;
+      color: white;
+      overflow: visible;
+    }
+    .telegram-button::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      border-radius: 40px;
+      border: 2px dotted white;
+      animation: dot-run 3s linear infinite;
+      pointer-events: none;
+    }
+    .telegram-button::after {
+      content: none;
+    }
+
+    @keyframes animate-border {
+      0% { background-position: 0 0; }
+      100% { background-position: 400% 0; }
+    }
+
+    @keyframes line-run {
+      0% { border-top-color: white; border-right-color: white; border-bottom-color: transparent; border-left-color: transparent; }
+      25% { border-top-color: transparent; border-right-color: white; border-bottom-color: white; border-left-color: transparent; }
+      50% { border-top-color: transparent; border-right-color: transparent; border-bottom-color: white; border-left-color: white; }
+      75% { border-top-color: white; border-right-color: transparent; border-bottom-color: transparent; border-left-color: white; }
+      100% { border-top-color: white; border-right-color: white; border-bottom-color: transparent; border-left-color: transparent; }
+    }
+
+    @keyframes dash-run {
+      0% { background-position: 0 0; border-color: white; }
+      100% { background-position: 100% 0; border-color: white; }
+    }
+
+    @keyframes dot-run {
+      0% { border-color: white; }
+      50% { border-color: transparent; }
+      100% { border-color: white; }
+    }
+
   </style>
 </head>
 <body>
@@ -83,9 +221,9 @@
   <div class="info">Whatsapp – 9794548391</div>
   <div class="info">Telegram - @pranshuu_yadavv</div>
 
-  <a class="button" href="https://instagram.com/pranshuu_yadavv" target="_blank" rel="noopener noreferrer">Follow on Instagram</a>
-  <a class="button" href="https://wa.me/919794548391" target="_blank" rel="noopener noreferrer">Message on WhatsApp</a>
-  <a class="button" href="https://t.me/pranshuu_yadavv" target="_blank" rel="noopener noreferrer">Join on Telegram</a>
-  <a class="button" href="https://lightpdf.com/cloud-docs?document_id=qnhie8z" target="_blank" rel="noopener noreferrer">📄 UPSSSC PET New Syllabus 2025</a>
+  <a class="button pdf-button" href="https://lightpdf.com/cloud-docs?document_id=qnhie8z" target="_blank">➡️UPSSSC PET New Syllabus 2025⬅️</a>
+  <a class="button instagram-button" href="https://instagram.com/pranshuu_yadavv" target="_blank">Follow on Instagram</a>
+  <a class="button whatsapp-button" href="https://wa.me/919794548391" target="_blank">Message on WhatsApp</a>
+  <a class="button telegram-button" href="https://t.me/pranshuu_yadavv" target="_blank">Join on Telegram</a>
 </body>
 </html>
